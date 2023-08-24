@@ -1,7 +1,12 @@
-<?php
+<?php 
 global $routes;
 $routes = array();
 
+//HOME
+//$routes['/rota/{parametro}] = '/rota/:parametro';
 $routes['/live'] = '/auth/live';
 $routes['/login'] = '/auth/login';
-$routes['/validate'] = '/auth/validate';
+//$routes['/alunos/{nome}'] = '/alunos/buscar/:nome';
+
+
+

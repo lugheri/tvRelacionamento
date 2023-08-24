@@ -1,9 +1,9 @@
 {
     "require":{
-        "phpmailer/phpmailer": "~6.1"
+        "phpmailer/phpmailer":"^6.1"
     },
     "autoload":{
-        "psr-4": {
+        "psr-4":{
             "Controllers\\":"App/Controllers/",
             "Models\\":"App/Models/",
             "Core\\":"App/Core/"

@@ -9,13 +9,13 @@ class Users extends Model {
   private $user_id;
 
   public function checkCredentials($username,$pass){
-    $sql = $this->db->prepare("SELECT id, pass FROM users WHERE email=:email AND `status`=1");
-    $sql->bindValue(':email',$username);
+    $sql = $this->db->prepare("SELECT id, senha FROM users WHERE usuario=:username AND `status`=1");
+    $sql->bindValue(':username',$username);
     $sql->execute();
     if($sql->rowCount() > 0 ) {
       $info = $sql->fetch();
     //  echo 'PASS '.$info['pass'];exit;
-      if(md5($pass)==$info['pass']){
+      if(md5($pass)==$info['senha']){
         $this->user_id=$info['id'];
         return true;
       }

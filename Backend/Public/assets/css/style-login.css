@@ -1,0 +1,44 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ul, ol, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.login-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.login-page{
+  background-image: url(../img/bg-login.jpg);
+  height:80vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand{
+  width: 15%;
+}
+
+.box-login{
+  background: linear-gradient(90deg, #43434a 0%, #2f2d37 100%);
+  margin-top: 10px;
+  border-radius:10px;
+  width:50%;
+  padding:10px 0;
+}
+
+.box-login .title{
+    padding:10px;
+    text-align: center;
+    color:#636363;
+    font-weight: 500;
+  
+}

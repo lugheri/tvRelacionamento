@@ -1,5 +1,6 @@
 <?php 
 namespace Core;
+
 class Model{
     protected $db;
 
@@ -7,4 +8,7 @@ class Model{
         global $db;
         $this->db = $db;
     }
+
+    //Metodos comuns a todas as models
+    
 }
