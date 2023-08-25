@@ -10,7 +10,7 @@ class Jwt extends Model {
     $payload = json_encode($data);
     $hbase = $this->base64url_encode($header);
     $pbase = $this->base64url_encode($payload);
-    $signature = hash_hmac("sha256", $hbase.".".$pbase,$config['jwt_secret_key'],true);
+    $signature = hash_hmac("sha256", $hbase.".".$pbase,'tvRelacionamento',true);
     $bsig = $this->base64url_encode($signature);
     $jwt = $hbase.".".$pbase.".".$bsig;
     return $jwt;
@@ -21,13 +21,29 @@ class Jwt extends Model {
     $array = array();
     $jwt_splits = explode('.',$jwt);
     if(count($jwt_splits) == 3){
-      $signature = hash_hmac("sha256",$jwt_splits[0].".".$jwt_splits[1],$config['jwt_secret_key'],true);
+      $signature = hash_hmac("sha256",$jwt_splits[0].".".$jwt_splits[1],'tvRelacionamento',true);
       $bsig = $this->base64url_encode($signature);
       if($bsig == $jwt_splits[2]){
         $array = json_decode($this->base64url_decode($jwt_splits[1]));
       }
     }
     return $array;
+  }
+
+  public function checkAuthenticate(){
+    $token = $request->getHeaders()['authorization'] ?? null;
+    if (!$token) {
+      return false;
+    }
+    try {
+      $check = $this.validate($token);
+      return $check;
+    } catch (Exception $e) {
+        // Retorna uma resposta de erro de autenticação
+        http_response_code(401);
+        echo json_encode(['message' => 'Unauthorized']);
+        return false;
+    }
   }
 
   private function base64url_encode($data){

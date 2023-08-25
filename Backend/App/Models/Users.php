@@ -2,7 +2,6 @@
 namespace Models;
 
 use \Core\Model;
-use \Models\Jwt;
 
 class Users extends Model {
 
@@ -17,22 +16,23 @@ class Users extends Model {
     //  echo 'PASS '.$info['pass'];exit;
       if(md5($pass)==$info['senha']){
         $this->user_id=$info['id'];
-        return true;
+        return $this->user_id;
       }
       return false;
     }
     return false;
   }
 
-  public function createJWT(){
-    $jwt = new Jwt();
-    return $jwt->create(array('user_id'=>$this->user_id));
-
+  public function infoUser($userid){
+    $sql = $this->db->prepare("SELECT * FROM users WHERE id=:userid");
+    $sql->bindValue(':userid',$userid);
+    $sql->execute();
+    if($sql->rowCount() > 0 ) {
+      $info = $sql->fetch();
+      return $info;
+    }
+    return false;
   }
 
-  public function validateJWT($token){
-    $jwt = new Jwt();
-    return $jwt->validate($token);
-  }
 
 }

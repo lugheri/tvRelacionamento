@@ -1,6 +1,7 @@
 <?php
 namespace Core;
 use Core\Models;
+use Models\Jwt;
 
 class Controller{
  public function getMethod(){
@@ -26,6 +27,30 @@ class Controller{
       break;
   }
  }
+
+  public function validate(){
+      $token = getallheaders()['Authorization'] ?? null;
+      if (!$token) {
+        $this->returnJson(false);
+        return false;
+      }
+      $dataToken = $this->validateJWT($token);
+      if(!$dataToken){
+        $this->returnJson(false);
+        return false;
+      }
+      return true;
+    }
+
+     public function createJWT($userId){
+      $jwt = new Jwt();
+      return $jwt->create(array('userid'=>$userId));  
+    }
+  
+    public function validateJWT($token){
+      $jwt = new Jwt();
+      return $jwt->validate($token);
+    }
 
  public function returnJson($array){
   header("Content-Type: application/json");
