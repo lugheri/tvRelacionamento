@@ -8,7 +8,7 @@ export const Template = () => {
       <Sidebar/>
       <div className="flex flex-col w-screen overflow-auto">
         <Navbar/>
-        <div className="h-[100vh] overflow-auto">
+        <div className="h-[92vh] overflow-hidden">
           <Outlet/>
         </div>
       </div>

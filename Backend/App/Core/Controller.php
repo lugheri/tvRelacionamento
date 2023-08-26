@@ -23,6 +23,11 @@ class Controller{
       if(is_null($data)){
         $data=$_POST;
       }
+      if (!empty($_FILES)) {
+        foreach ($_FILES as $fieldName => $fileData) {
+          $data[$fieldName] = $fileData;
+        }
+      }
       return (array) $data;
       break;
   }

@@ -71,7 +71,17 @@ export const Sidebar = () => {
             to={`/biblioteca`} 
             side={side} 
             name='Biblioteca' 
-            icon='faPhotoFilm'/>  
+            icon='faPhotoFilm'/>            
+          <SideItem 
+            to={`/academicos`} 
+            side={side} 
+            name='Conteúdo Acadêmico' 
+            icon='faGraduationCap'/>
+          <SideItem 
+            to={`/anuncios`} 
+            side={side} 
+            name='Anúncios' 
+            icon='faBullhorn'/>   
         </ul>
       </div>
       {/*Side Settings*/}

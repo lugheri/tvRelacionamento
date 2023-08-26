@@ -13,8 +13,11 @@ import { Programas } from '../pages/Programas';
 import { Programacao } from '../pages/Programacao';
 import { Galeria } from '../pages/Galeria';
 import { Biblioteca } from '../pages/Biblioteca';
+import { Anuncios } from '../pages/Anuncios';
+import { Academicos } from '../pages/Academicos';
 
 import { Configuracoes } from '../pages/Configuracoes';
+
 
 //Validate Auths
 const Private: React.FC<PrivateProps> = ({Item}) => {
@@ -59,6 +62,14 @@ const RoutesApp = () => {
             {
               path:'/biblioteca',
               element:<Biblioteca/>, 
+            },
+            {
+              path:'/anuncios',
+              element:<Anuncios/>, 
+            },
+            {
+              path:'/academicos',
+              element:<Academicos/>, 
             },
             {
               path:'/configuracoes',

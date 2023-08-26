@@ -10,7 +10,11 @@ $routes['/userToken'] = '/auth/userToken';
 $routes['/getUser/{userid}'] = '/auth/getUser/:userid';
 
 //Apresentadores
-$routes['/getApresentadores/{status}'] = '/apresentadores/getApresentadores/:status';
+$routes['/totalApresentadores/{status}'] = '/apresentadores/totalApresentadores/:status';
+$routes['/getApresentadores/{status}/{pag}'] = '/apresentadores/getApresentadores/:status/:pag';
+$routes['/novoApresentador'] = '/apresentadores/novoApresentador';
+$routes['/infoApresentador/{idapresentador}'] = '/apresentadores/infoApresentador/:idapresentador';
+$routes['/editarApresentador/{idapresentador}'] = '/apresentadores/editarApresentador/:idapresentador';
 
 //$routes['/alunos/{nome}'] = '/alunos/buscar/:nome';
 
