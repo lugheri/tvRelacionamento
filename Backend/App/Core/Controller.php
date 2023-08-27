@@ -18,6 +18,18 @@ class Controller{
       parse_str(file_get_contents('php://input'),$data);
       return (array) $data;
       break;
+    case 'PATCH':
+      $data = json_decode(file_get_contents('php://input'));
+      if(is_null($data)){
+        $data=$_POST;
+      }
+      if (!empty($_FILES)) {
+        foreach ($_FILES as $fieldName => $fileData) {
+          $data[$fieldName] = $fileData;
+        }
+      }
+      return (array) $data;
+      break;
     case 'POST':
       $data = json_decode(file_get_contents('php://input'));
       if(is_null($data)){

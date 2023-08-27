@@ -9,7 +9,7 @@ import { Error } from '../pages/Error';
 //Paginas
 import { Home } from '../pages/Home';
 import { Apresentadores } from '../pages/Apresentadores';
-import { Programas } from '../pages/Programas';
+import { Programas } from '../pages/Programas/index';
 import { Programacao } from '../pages/Programacao';
 import { Galeria } from '../pages/Galeria';
 import { Biblioteca } from '../pages/Biblioteca';

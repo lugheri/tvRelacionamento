@@ -11,7 +11,7 @@ export const Card: React.FC<CardType> = (props) => {
 
 export const CardItem: React.FC<CardType> = (props) => {
   return(
-    <div className={`flex overflow-hidden shadow bg-white rounded-md mx-[.5%] my-1 w-[19%] ${props.className}`}>
+    <div className={`flex overflow-hidden shadow bg-white rounded-md my-1 ${props.className}`}>
       {props.component}
     </div>
   )

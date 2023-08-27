@@ -34,10 +34,23 @@ class Apresentadores extends Model {
     return false;
   }
 
+  public function listaTodosApresentadores(){
+    $sql = $this->db->prepare("SELECT id, nome 
+                                 FROM apresentadores
+                                WHERE status=1 
+                                ORDER BY nome ASC");
+    $sql->execute();
+    if($sql->rowCount() > 0 ) {
+      $rows = $sql->fetchAll(\PDO::FETCH_ASSOC);
+      return $rows;
+    }
+    return false;
+  }
+
   public function novoApresentador($idFoto,$nome,$descricao){
-      $sql = $this->db->prepare("INSERT INTO `apresentadores` 
-                                         (`data`,`foto`,`nome`,`descricao`,`ordem`,`status`)
-                                  VALUES (now(),:idFoto,:nome,:descricao,1,1)");
+    $sql = $this->db->prepare("INSERT INTO `apresentadores` 
+                                          (`data`,`foto`,`nome`,`descricao`,`ordem`,`status`)
+                                   VALUES (now(),:idFoto,:nome,:descricao,1,1)");
     $sql->bindValue(':idFoto',$idFoto);
     $sql->bindValue(':nome',$nome);
     $sql->bindValue(':descricao',$descricao);
@@ -58,6 +71,36 @@ class Apresentadores extends Model {
     }
     return false;
   }
+
+  public function editarInfoApresentador($idApresentador,$nome,$descricao){
+    $sql = $this->db->prepare("UPDATE `apresentadores` 
+                                  SET `nome`=:nome,
+                                      `descricao`=:descricao
+                                WHERE `id`=:idApresentador");
+    $sql->bindValue(':idApresentador',$idApresentador);
+    $sql->bindValue(':nome',$nome);
+    $sql->bindValue(':descricao',$descricao);
+    $sql->execute();
+    return  true;
+  }
+
+  public function salvarFotoApresentador($idApresentador,$idFoto){
+  $sql = $this->db->prepare("UPDATE `apresentadores` 
+                                  SET `foto`=:idFoto
+                                WHERE `id`=:idApresentador");
+    $sql->bindValue(':idApresentador',$idApresentador);
+    $sql->bindValue(':idFoto',$idFoto);
+    $sql->execute();
+    return  true;}
+
+  public function editarStatusApresentador($idApresentador,$status){
+    $sql = $this->db->prepare("UPDATE `apresentadores` 
+                                  SET `status`=:status
+                                WHERE `id`=:idApresentador");
+    $sql->bindValue(':idApresentador',$idApresentador);
+    $sql->bindValue(':status',$status);
+    $sql->execute();
+    return  true;}
 
 
 }

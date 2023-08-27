@@ -6,6 +6,7 @@ use Models\Apresentadores;
 use Models\Biblioteca;
 
 class apresentadoresController extends Controller{
+  
   public function totalApresentadores($status){
       $validate = $this->validate();
       if($validate==false){
@@ -17,7 +18,7 @@ class apresentadoresController extends Controller{
       return $this->returnJson($total);
   }
 
-	public function getApresentadores($status,$pag){
+  public function getApresentadores($status,$pag){
       $validate = $this->validate();
       if($validate==false){
         $this->returnJson('Erro Token');
@@ -25,6 +26,18 @@ class apresentadoresController extends Controller{
       }    
       $a = new Apresentadores;
       $apresentadores = $a->listApresentadores($status,$pag); 
+     
+      return $this->returnJson($apresentadores);
+  }
+
+  public function listaTodosApresentadores(){
+      $validate = $this->validate();
+      if($validate==false){
+        $this->returnJson('Erro Token');
+        return;
+      }    
+      $a = new Apresentadores;
+      $apresentadores = $a->listaTodosApresentadores(); 
      
       return $this->returnJson($apresentadores);
   }
@@ -69,7 +82,66 @@ class apresentadoresController extends Controller{
     return $this->returnJson($infoApresentador);
   }
 
-  public function editarApresentador($idApresentador){}
+  public function editarApresentador($idapresentador){
+    $validate = $this->validate();
+    if($validate==false){
+      $this->returnJson('Erro Token');
+      return;
+    }    
+    $method = $this->getMethod();
+    if($method === 'PATCH'){
+      $a = new Apresentadores;
+      $data = $this->getRequestData();
+      $a->editarInfoApresentador($idapresentador,$data['nome'],$data['descricao']);
+      $array['success']=true;
+    }else{
+      $array['error'] = 'Método de requisição incompatível!';
+    }  
+    $this->returnJson($array);  
+  }
+
+  public function trocarFotoApresentador(){
+    $validate = $this->validate();
+    if($validate==false){
+      $this->returnJson('Erro Token');
+      return;
+    }
+    $method = $this->getMethod();
+    if($method === 'POST'){
+      $a = new Apresentadores;
+      $data = $this->getRequestData();     
+      //Manipulando Imagem
+      $infoFoto=$this->salvarFotoApresentador($data['foto'],$data['nome']);
+      if($infoFoto['erro']){
+        $array['error'] =$infoFoto['erro'];
+      }else{
+        //Editando foto do Apresentador
+        $a->salvarFotoApresentador($data['idApresentador'],$infoFoto['infoImagem']['id']);
+        $array['success']=true;
+      }      
+    }else{
+      $array['error'] = 'Método de requisição incompatível!';
+    }  
+    $this->returnJson($array);
+  }
+
+  public function removerApresentador($idapresentador){
+    $validate = $this->validate();
+    if($validate==false){
+      $this->returnJson('Erro Token');
+      return;
+    }
+    $method = $this->getMethod();
+    if($method === 'PATCH'){
+       $a = new Apresentadores;
+       $data = $this->getRequestData();
+       $a->editarStatusApresentador($idapresentador,$data['status']);
+       $array['success']=true;
+    }else{
+      $array['error'] = 'Método de requisição incompatível!';
+    }  
+    $this->returnJson($data);
+  }
 
   public function salvarFotoApresentador($imageData,$apresentador){
     $arquivo=$imageData;
@@ -80,7 +152,7 @@ class apresentadoresController extends Controller{
     
     if(isset($arquivo) && $arquivo['size'] > 0)
     {
-      $extensoes_aceitas = array('png','jpeg','jpg');
+      $extensoes_aceitas = array('png','jpeg','jpg','jfif');
       $array_extensoes   = explode('.', $arquivo['name']);
       $extensao = strtolower(end($array_extensoes));
       $size=$arquivo['size'];
