@@ -89,14 +89,34 @@ class Programas extends Model {
     $sql->execute();
     return  true;}
 
-  public function editarStatusPrograma($idPrograma,$status){
-    $sql = $this->db->prepare("UPDATE `programas` 
-                                  SET `status`=:status
-                                WHERE `id`=:idPrograma");
+  public function totalVideosPrograma($idPrograma,$status){
+    $sql = $this->db->prepare("SELECT COUNT(id) AS total FROM videos 
+                                WHERE idPrograma=:idPrograma AND status=:status");
     $sql->bindValue(':idPrograma',$idPrograma);
     $sql->bindValue(':status',$status);
     $sql->execute();
-    return  true;}
+    $rows = $sql->fetch();
+    return $rows['total'];
+  }
+
+  public function listVideosPrograma($idPrograma,$status,$pag){
+    $pg = $pag-1;
+    $reg=9;
+    $init = 9*$pg;
+    $sql = $this->db->prepare("SELECT * FROM videos WHERE idPrograma=:idPrograma AND status=:status 
+                                ORDER BY id DESC
+                                LIMIT :init, :reg");
+    $sql->bindValue(':idPrograma',$idPrograma);
+    $sql->bindValue(':status',$status);
+    $sql->bindValue(':init', $init, \PDO::PARAM_INT);
+    $sql->bindValue(':reg', $reg, \PDO::PARAM_INT);
+    $sql->execute();
+    if($sql->rowCount() > 0 ) {
+      $rows = $sql->fetchAll(\PDO::FETCH_ASSOC);
+      return $rows;
+    }
+    return false;
+  }
 
 
 }

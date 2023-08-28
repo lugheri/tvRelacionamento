@@ -27,6 +27,9 @@ $routes['/infoPrograma/{idprograma}'] = '/programas/infoPrograma/:idprograma';
 $routes['/editarPrograma/{idprograma}'] = '/programas/editarPrograma/:idprograma';
 $routes['/trocarFotoPrograma'] = '/programas/trocarFotoPrograma';
 $routes['/removerPrograma/{idprograma}'] = '/programas/removerPrograma/:idprograma';
+//Videos
+$routes['/totalVideosPrograma/{programa}/{status}'] = '/programas/totalVideosPrograma/:programa/:status';
+$routes['/getVideosPrograma/{programa}/{status}/{pag}'] = '/programas/getVideosPrograma/:programa/:status/:pag';
 
 
 

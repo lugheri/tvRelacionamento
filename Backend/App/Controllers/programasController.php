@@ -178,4 +178,28 @@ class programasController extends Controller{
     }
     return $data;
   }
+
+  //Videos
+  public function totalVideosPrograma($programa,$status){
+    $validate = $this->validate();
+    if($validate==false){
+      $this->returnJson('Erro Token');
+      return;
+    }    
+    $p = new Programas;
+    $total = $p->totalVideosPrograma($programa,$status);      
+    return $this->returnJson($total);
+  }
+
+  public function getVideosPrograma($programa,$status,$pag){
+      $validate = $this->validate();
+      if($validate==false){
+        $this->returnJson('Erro Token');
+        return;
+      }    
+      $p = new Programas;
+      $programas = $p->listVideosPrograma($programa,$status,$pag); 
+     
+      return $this->returnJson($programas);
+  }
 }

@@ -17,6 +17,7 @@ import { Anuncios } from '../pages/Anuncios';
 import { Academicos } from '../pages/Academicos';
 
 import { Configuracoes } from '../pages/Configuracoes';
+import { AbrirPrograma } from '../pages/Programas/components/AbrirPrograma';
 
 
 //Validate Auths
@@ -49,7 +50,10 @@ const RoutesApp = () => {
             },
             {
               path:'/programas',
-              element:<Programas/>, 
+              children:[
+                { index: true, element:<Programas/>},
+                { path: '/programas/programa/:idPrograma', element:<AbrirPrograma/>},
+              ]
             },
             {
               path:'/programacao',

@@ -5,6 +5,7 @@ import { Loading } from '../../../../components/Loading/index.';
 import { CardItem } from '../../../../components/Cards';
 import { urlBase } from '../../../../utils/baseUrl';
 import { Button } from '../../../../components/Buttons';
+import { useNavigate } from 'react-router-dom';
 
 interface ListProgramaProps{
   page:number;
@@ -18,6 +19,7 @@ interface ListProgramaProps{
 
 export const ListProgramas : React.FC<ListProgramaProps> = (props) => { 
   const [programas,setProgramas] = useState<IPrograma[]|null>(null)
+  
   useEffect(()=>{
     const getProgramas = async () => {
       try{
@@ -31,6 +33,10 @@ export const ListProgramas : React.FC<ListProgramaProps> = (props) => {
   },[props.novoPrograma,props.editPrograma,props.removerPrograma,props.trocarFotoPrograma])
   const [nextPage, setNextPage ] = useState(0)
 
+  const navigate = useNavigate();
+  const abrirPrograma = (idPrograma:number) => { 
+    navigate(`/programas/programa/${idPrograma}`)
+  }
   
  
   return(
@@ -56,7 +62,7 @@ export const ListProgramas : React.FC<ListProgramaProps> = (props) => {
               <div className="flex justify-center items-center w-full p-1 shadow-inner">
                 <Button btn="error" icon="faTrash" title="Remover Programa" size='sm' type='notline' onClick={()=>props.setRemoverPrograma(programa.id)} />
                 <Button btn="info" icon="faEdit" name="Editar Informações" size='sm' type='notline' onClick={()=>props.setEditPrograma(programa.id)} />
-                <Button btn="warning" icon="faVideo" name="Configurar Programa" size='sm' type='outline' onClick={()=>props.setEditPrograma(programa.id)} />
+                <Button btn="warning" icon="faVideo" name="Configurar Programa" size='sm' type='outline' onClick={()=>abrirPrograma(programa.id)} />
               </div>           
             </div>}/>
           ))

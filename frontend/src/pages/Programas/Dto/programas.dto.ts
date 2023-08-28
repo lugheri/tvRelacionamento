@@ -14,3 +14,21 @@ export interface IPrograma{
 export interface IListProgramas{
   programas:IPrograma[]
 }
+
+export interface IVideo{
+  id:number;
+  data:string;
+  plataforma:string;
+  idPrograma:number;
+  idVideo:string;
+  idCapa:number;
+  titulo:string;
+  descricao:string;
+  ordem:number;
+  status:number;
+}
+
+export interface IListVideos{
+  videos:IVideo[]
+}
+
